@@ -1,0 +1,26 @@
+.TH SIMPLE_SHELL 1 "August 2024" "Own Simple Shell"
+.SH NAME
+simple_shell - simple shell creation
+.SH SYNOPSIS
+simple_shell is a basic useful program.
+.SH DESCRIPTION
+simple_shell is a basic command-line program that allows users to execute commands and interact with the system.
+.SH COMMANDS
+simple_shell supports the following commands:
+.IP "first_command [arguments]" 4
+Executes the specified command with the given arguments.
+.IP "second_command [arguments]" 4
+Executes another command with the given arguments.
+.SH EXIT STATUS
+The simple_shell command returns the following exit status values:
+.IP "0" 4
+The command executed successfully.
+.IP "1" 4
+An error occurred during command execution.
+.SH EXAMPLES
+To execute a command, simply type the command followed by any arguments:
+.IP "$ ./simple_shell first_command arg1 arg2" 4
+.SH AUTHOR
+Yunis Gulamov
+Fatima Umudova
+Zahra Israfilova
