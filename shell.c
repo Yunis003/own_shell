@@ -1,8 +1,6 @@
 #include "main.h"
 /**
   * main - Getline function
-  * @argc: Argument count
-  * @argv: Array of argument values
   *
   * Return: 0 on success
   */
@@ -22,14 +20,26 @@ int main() {
             exit(0);
         }
 
-        token = strtok(buf, "\n");
+        if (buf[nread - 1] == '\n') {
+            buf[nread - 1] = '\0';
+        }
 
         array = malloc(sizeof(char*) * 1024);
+        if (array == NULL) {
+            perror("Unable to allocate memory");
+            exit(EXIT_FAILURE);
+        }
+
         i = 0;
+        token = strtok(buf, " ");
 
         while (token) {
-            array[i] = token;
-            token = strtok(NULL, " \n");
+            array[i] = strdup(token);
+            if (array[i] == NULL) {
+                perror("Unable to duplicate token");
+                exit(EXIT_FAILURE);
+            }
+            token = strtok(NULL, " ");
             i++;
         }
 
@@ -39,17 +49,20 @@ int main() {
 
         if (child_pid == -1) {
             perror("Failed to create.");
-            exit(41);
+            exit(EXIT_FAILURE);
         }
         if (child_pid == 0) {
             if (execve(array[0], array, NULL) == -1) {
                 perror("No such file or directory");
-                exit(97);
+                exit(EXIT_FAILURE);
             }
         } else {
             wait(&status);
         }
 
+        for (i = 0; array[i] != NULL; i++) {
+            free(array[i]);
+        }
         free(array);
     }
 
