@@ -6,15 +6,18 @@
  *
  * Return: 1 if a built-in command is executed, 0 otherwise
  */
+
 int handle_builtin_commands(char **array)
 {
     if (strcmp(array[0], "echo") == 0)
     {
-        for (int i = 1; array[i] != NULL; i++)
+        int i = 1;
+        while (array[i] != NULL)
         {
             printf("%s", array[i]);
             if (array[i + 1] != NULL)
                 printf(" ");
+            i++;
         }
         printf("\n");
         return (1);
