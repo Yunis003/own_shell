@@ -22,8 +22,6 @@ int main()
 
         while (1)
         {
-                write(STDOUT_FILENO, "MyShell$ ", 9);
-
                 nread = getline(&buf, &count, stdin);
 
                 if (nread ==  -1)
