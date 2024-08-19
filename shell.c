@@ -1,125 +1,126 @@
 #include "main.h"
+
 /**
- * execute_command - func for executing command
- * @args: arguments to path
- * @path: path
- */
-void execute_command(char **args, char *path)
+  * main - Getline function
+  * @argc: Argument count
+  * @argv: Array of argument values
+  *
+  * Return: 0 on success
+  */
+int main()
 {
-	pid_t pid;
-	int status;
+    char *buf = NULL;
+    char *token;
+    size_t count = 0;
+    ssize_t nread;
+    pid_t child_pid;
+    int i, status;
+    char **array;
+    int pipefd[2];
+    int has_pipe = 0;
+    char *cmd2[1024];
+    int k = 0;
 
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork failed");
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-	{
-		if (execve(path, args, environ) == -1)
-		{
-			free(path);
-			fprintf(stderr, "./hsh: 1: %s: not found\n", args[0]);
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
-	{
-		if (wait(&status) == -1)
-		{
-			free(path);
-			perror("wait failed");
-			exit(EXIT_FAILURE);
-		}
-	}
+    while (1)
+    {
+        nread = getline(&buf, &count, stdin);
+
+        if (nread == -1)
+        {
+            perror("Exiting shell");
+            exit(1);
+        }
+
+        buf[strlen(buf) - 1] = '\0';
+
+        for (i = 0; buf[i]; i++)
+        {
+            if (buf[i] == '|')
+            {
+                has_pipe = 1;
+                buf[i] = '\0';
+                break;
+            }
+        }
+
+        token = strtok(buf, " ");
+        array = malloc(sizeof(char*) * 1024);
+        i = 0;
+
+        while (token)
+        {
+            array[i] = token;
+            token = strtok(NULL, " ");
+            i++;
+        }
+        array[i] = NULL;
+
+        if (has_pipe)
+        {
+            token = strtok(buf + i + 1, " ");
+            while (token)
+            {
+                cmd2[k] = token;
+                token = strtok(NULL, " ");
+                k++;
+            }
+            cmd2[k] = NULL;
+        }
+
+        child_pid = fork();
+
+        if (child_pid == -1)
+        {
+            perror("Failed to create.");
+            exit(41);
+        }
+
+        if (child_pid == 0)
+        {
+            if (has_pipe)
+            {
+                if (pipe(pipefd) == -1)
+                {
+                    perror("Pipe failed");
+                    exit(1);
+                }
+
+                if (fork() == 0)
+                {
+                    dup2(pipefd[1], STDOUT_FILENO);
+                    close(pipefd[0]);
+                    close(pipefd[1]);
+                    execvp(array[0], array);
+                    perror("Exec failed");
+                    exit(1);
+                }
+                else
+                {
+                    wait(NULL);
+                    dup2(pipefd[0], STDIN_FILENO);
+                    close(pipefd[1]);
+                    close(pipefd[0]);
+                    execvp(cmd2[0], cmd2);
+                    perror("Exec failed");
+                    exit(1);
+                }
+            }
+            else
+            {
+                execvp(array[0], array);
+                perror("Exec failed");
+                exit(1);
+            }
+        }
+        else
+        {
+            wait(&status);
+        }
+
+        free(array);
+        has_pipe = 0;
+    }
+
+    free(buf);
+    return 0;
 }
-/**
- * parse_command - func for parsing command
- * @u_command: command to be parsed
- * @args: arguments to command
-*/
-void parse_command(char *u_command, char **args)
-{
-	char *command = strtok(u_command, " \t");
-	int i = 0;
-
-	args[0] = NULL;
-	while (command != NULL && i < MAX_LEN - 1)
-	{
-		args[i] = command;
-		i++;
-		command = strtok(NULL, " \t");
-	}
-	args[i] = NULL;
-}
-/**
- * process_commands - commands processor func
- * @commands: commands
- * @commands_array: array for all commands
-*/
-void process_commands(char *commands, char **commands_array)
-{
-	char *command;
-	int a = 0;
-
-	command = strtok(commands, "\n");
-	while (command != NULL)
-	{
-		commands_array[a] = command;
-		command = strtok(NULL, "\n");
-		a++;
-	}
-	commands_array[a] = NULL;
-}
-/**
- * handle_commands_array - func for handling array of commands
- * @commands_array: array of commands
- */
-void handle_commands_array(char **commands_array)
-{
-	int a = 0;
-	char *command;
-
-	if (strcmp(commands_array[a], "exit") == 0)
-		exit(0);
-	else if (strcmp(commands_array[a], "env") == 0)
-		print_env();
-	else
-		while (commands_array[a] != NULL)
-		{
-			command = commands_array[a];
-			if (strcmp(command, "exit") == 0 && a > 0)
-				exit(2);
-			handle_command(command);
-			a++;
-		}
-}
-/**
- * main - main func to process all functions
- * Return: integer
- */
-int main(void)
-{
-	char commands[MAX_LEN];
-	char *commands_array[MAX_LEN];
-	ssize_t read_size;
-
-	while (1)
-	{
-		read_size = read(STDIN_FILENO, commands, MAX_LEN);
-		if (read_size == -1)
-		{
-			perror("Error reading command");
-			exit(EXIT_FAILURE);
-		}
-		else if (read_size == 0)
-			break;
-		commands[read_size] = '\0';
-
-		process_commands(commands, commands_array);
-		handle_commands_array(commands_array);
-	}
-	return (0);
-}
-
