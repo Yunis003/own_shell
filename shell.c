@@ -1,72 +1,75 @@
 #include "main.h"
-#include <stdio.h>
+
 /**
-  * main - Main entry point for our program
-  * @argc: Argument count to the main
-  * @argv: Pointer to array of argument values
+  * main - Getline function
+  * @argc: Argument count
+  * @argv: Array of argument values
   *
-  * Return: O Always success
+  * Return: 0 on success
   */
+
 int main()
 {
-    char *buf = NULL;
-    char *token;
-    size_t count = 0;
-    ssize_t nread;
-    pid_t my_pid;
-    int status, i;
-    char **array;
+        char *buf = NULL; 
+	char *token; 
+	char *path;
+        size_t count = 0;
+        ssize_t nread;
+        pid_t child_pid;
+        int i;
+        int status;
+        char **array;
 
-    while (1)
-    {
-        write(STDOUT_FILENO, "MyShell$ ", 9);
-
-        nread = getline(&buf, &count, stdin);
-
-        if (nread == -1)
+        while (1)
         {
-            perror("Exiting shell");
-            exit(1);
+                write(STDOUT_FILENO, "MyShell$ ", 9);
+
+                nread = getline(&buf, &count, stdin);
+
+                if (nread ==  -1)
+                {
+                        perror("Exiting shell");
+                        exit(0);
+                }
+
+                token = strtok(buf, " \n");
+
+                array = malloc(sizeof(char*) * 1024);
+                i = 0;
+
+                while (token)
+                {
+                        array[i] = token;
+                        token = strtok(NULL, " \n");
+                        i++;
+                }
+
+                array[i] = NULL;
+
+                path = get_file_path(array[0]);
+
+                child_pid = fork();
+
+                if (child_pid == -1)
+                {
+                        perror("Failed to create.");
+                        exit (41);
+                }
+
+                if (child_pid == 0)
+                {
+                        if (execve(path, array, NULL) == -1)
+                        {
+                                perror("Failed to execute");
+                                exit(97);
+                        }
+                }
+                else
+                {
+                        wait(&status);
+                }
         }
-
-        token = strtok(buf, " \n");
-
-        array = malloc(sizeof(char *) * 1000);
-        i = 0;
-
-        while (token)
-        {
-            array[i] = token;
-            token = strtok(NULL, " \n");
-            i++;
-        }
-
-        array[i] = NULL;
-
-        my_pid = fork();
-
-        if (my_pid == -1)
-        {
-            perror("Failed to create!");
-            exit(41);
-        }
-        if (my_pid == 0)
-        {
-            printf("The creation was successful\n");
-            if (execve(array[0], array, NULL) == -1)
-            {
-                perror("Failed to execute");
-                exit(97);
-            }
-        }
-        else
-        {
-            wait(&status);
-        }
-    }
-
-    free(buf);
-    free(array);
-    return 0;
+        free(path);
+        free(buf);
+        return (0);
 }
-
