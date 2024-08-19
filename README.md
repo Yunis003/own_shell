@@ -1,7 +1,7 @@
 # Own Simple Shell
 A simple shell creation in C
 
-<img src="https://tse4.mm.bing.net/th?id=OIG1.Rd4GX43h9sYizi80h.bd&pid=ImgGn" width="300px" height="300px">
+<img src="https://tse1.mm.bing.net/th?id=OIG1.BOs.NAe1q5E8FRlJkHDq&pid=ImgGn" width="300px" height="300px">
 
 ## Introduction
 The Simple Shell is a basic command-line interpreter written in C. It provides a simplified interface for users to interact with the operating system.
