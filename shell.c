@@ -1,5 +1,4 @@
 #include "main.h"
-
 /**
   * main - Getline function
   * @argc: Argument count
@@ -7,60 +6,54 @@
   *
   * Return: 0 on success
   */
+int main() {
+    char *buf = NULL, *token;
+    size_t count = 0;
+    ssize_t nread;
+    pid_t child_pid;
+    int i, status;
+    char **array;
 
-int main()
-{
-        char *buf = NULL, *token;
-        size_t count = 0;
-        ssize_t nread;
-        pid_t child_pid;
-        int i, status;
-        char **array;
+    while (1) {
+        nread = getline(&buf, &count, stdin);
 
-        while (1)
-        {
-                nread = getline(&buf, &count, stdin);
-
-                if (nread ==  -1)
-                {
-                        perror("Exiting shell");
-                        exit(1);
-                }
-
-                token = strtok(buf, " \n");
-
-                array = malloc(sizeof(char*) * 1024);
-                i = 0;
-
-                while (token)
-                {
-                        array[i] = token;
-                        token = strtok(NULL, " \n");
-                        i++;
-                }
-
-                array[i] = NULL;
-
-                child_pid = fork();
-
-                if (child_pid == -1)
-                {
-                        perror("Failed to create.");
-                        exit (41);
-                }
-		if (child_pid == 0)
-		{
-			if (execve(array[0], array, NULL) == -1)
-			{
-				perror("No such file or directory");
-				exit(97);
-			}
-		}
-		else
-		{
-			wait(&status);
-		}
+        if (nread == -1) {
+            free(buf);
+            exit(0);
         }
-        free(buf);
-        return (0);
+
+        token = strtok(buf, "\n");
+
+        array = malloc(sizeof(char*) * 1024);
+        i = 0;
+
+        while (token) {
+            array[i] = token;
+            token = strtok(NULL, " \n");
+            i++;
+        }
+
+        array[i] = NULL;
+
+        child_pid = fork();
+
+        if (child_pid == -1) {
+            perror("Failed to create.");
+            exit(41);
+        }
+        if (child_pid == 0) {
+            if (execve(array[0], array, NULL) == -1) {
+                perror("No such file or directory");
+                exit(97);
+            }
+        } else {
+            wait(&status);
+        }
+
+        free(array);
+    }
+
+    free(buf);
+    return 0;
 }
+
