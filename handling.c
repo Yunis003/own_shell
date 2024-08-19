@@ -1,41 +1,38 @@
 #include "main.h"
-
-/**
- * get_path - gets the path of a command
- * @arr: array of commands
- * @command: command
- * Return: returns the path of the command
-*/
-
-char *get_path(char **arr, char *command)
+/** 
+ * print_env - func for printing rnv
+ */
+void print_env(void)
 {
-	struct  stat st;
-	char *path = getenv("PATH"), *copyenv = NULL, *token = NULL, *f_path = NULL;
+	char **env_ptr = environ;
+	
+	while (*env_ptr != NULL)
+	{
+		printf("%s\n", *env_ptr);
+		env_ptr++;
+	}
+}
+/**
+ * setup_environment - funv for environment setup
+ * @path_env: environment path
+ * @path: path
+*/
+void setup_environment(char **path_env, char **path)
+{
+	int i;
 
-	if (path == NULL || strlen(path) == 0)
+	*path = malloc(MAX_LEN);
+	if (!*path)
 	{
-		fprintf(stderr, "./hsh: 1: %s: not found\n", arr[0]);
-		free(command);
-		free_arr(arr);
-		exit(127);
+		perror("Malloc failed");
+		exit(EXIT_FAILURE);
 	}
-	copyenv = strdup(path);
-	token = strtok(copyenv, ":");
-	f_path = malloc(sizeof(char) * SIZE);
-	while (token != NULL)
-	{
-		snprintf(f_path, SIZE, "%s/%s", token, arr[0]);
-		if (stat(f_path, &st) == 0)
+	memset(*path, 0, MAX_LEN);
+
+	for (i = 0; environ[i] != NULL; i++)
+		if (strncmp(environ[i], PATH, 5) == 0)
 		{
-			free(copyenv);
-			return (f_path);
+			*path_env = strdup(environ[i] + 5);
+			break;
 		}
-		token = strtok(NULL, ":");
-	}
-	fprintf(stderr, "./hsh: 1: %s: not found\n", arr[0]);
-	free(command);
-	free(copyenv);
-	free(f_path);
-	free_arr(arr);
-	exit(127);
 }

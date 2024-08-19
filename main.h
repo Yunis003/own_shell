@@ -1,25 +1,28 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef MAINH
+#define MAINH
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <stdbool.h>
-#include <sys/wait.h>
-
-#define SIZE 100
+#include <errno.h>
+#include <dirent.h>
+#define MAX_LEN 100
+#define PROMPT ">> "
+#define PATH "PATH="
 
 extern char **environ;
-int main(void);
-bool exit_and_env(char *command, int *status);
-void pre_execute(char *command, char *tmp, int *status);
-void execute(char **arr, char *path, int *status, char *tmp);
-char **split(char *input);
-void free_arr(char **arr);
+void devide_commands(char* commands, char** commands_array);
+void handle_command(char *u_command);
 void print_env(void);
-char *get_path(char **arr, char *command);
+void setup_environment(char **path_env, char **path);
+void execute_command(char **args, char *path);
+void parse_command(char *u_command, char **args);
+void handle_path(char **args, char **path, char **path_env, int *found);
+void handle_command(char *u_command);
+void handle_commands_array(char **commands_array);
 
 #endif
