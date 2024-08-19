@@ -1,6 +1,8 @@
 # Own Simple Shell
 A simple shell creation in C
 
+<img src="https://tse4.mm.bing.net/th?id=OIG1.Rd4GX43h9sYizi80h.bd&pid=ImgGn" width="300px" height="300px">
+
 ## Introduction
 The Simple Shell is a basic command-line interpreter written in C. It provides a simplified interface for users to interact with the operating system.
 
@@ -31,6 +33,8 @@ For more: [man page](man_1_simple_shell).
 
 ## Flowchart
 
+<img src="https://preview.redd.it/cool-flowchart-showing-linux-and-unix-shell-execution-v0-gdwxcbc8tfqa1.png?width=640&crop=smart&auto=webp&s=539d264df7e7bf6b4cf1f55412cf3660d0392224" width="300px">
+
 
 
 ## Authors
@@ -38,3 +42,4 @@ For more: [man page](man_1_simple_shell).
 + Yunis Gulamov
 + Umudova Fatima
 + Zahra Israfilova
+
