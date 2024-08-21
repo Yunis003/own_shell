@@ -2,7 +2,9 @@
 A simple shell creation in C
 
 <img src="https://tse1.mm.bing.net/th?id=OIG1.BOs.NAe1q5E8FRlJkHDq&pid=ImgGn" width="300px" height="300px">
-![pc-banging](https://github.com/user-attachments/assets/601fb310-f852-4ad2-80a2-9fe6d09a0446)
+
+![cat-work-in-progress](https://github.com/user-attachments/assets/32bc9262-ed41-4d47-97bc-9fc408e3633f)
+
 
 ## Introduction
 The Simple Shell is a basic command-line interpreter written in C. It provides a simplified interface for users to interact with the operating system.
