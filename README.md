@@ -13,6 +13,8 @@ The Simple Shell is a basic command-line interpreter written in C. It provides a
 + Support command line arguments
 + Handles I/O redirection
 
+![cat-computer](https://github.com/user-attachments/assets/8fe1627e-615e-4ac8-bc3e-6b654886c27d)
+
 ## Installation
 
 Follow these steps:
