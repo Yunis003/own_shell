@@ -21,4 +21,6 @@ An error occurred during command execution.
 To execute a command, simply type the command followed by any arguments:
 .IP "$ ./simple_shell first_command arg1 arg2" 4
 .SH AUTHOR
-
+Yunis Gulamov
+Fatima Umudova
+Zahra Israfilova
