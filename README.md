@@ -26,6 +26,7 @@ Follow these steps:
 2. Navigate to the project: `cd holbertonschool-simple_shell`
 3. Compile the code: `gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o simpleShell`
 4. Run the shell: `./simpleShell`
+<img src="https://media.tenor.com/FawYo00tBekAAAAM/loading-thinking.gif" width="270px">
 
 ## Usage
 
