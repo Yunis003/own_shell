@@ -37,7 +37,7 @@ Once the shell is running, you can enter commands in there. Here are a few examp
 
 For more: [man page](man_1_simple_shell).
 
-<img src="https://media.tenor.com/1MrJecNevgAAAAAM/c-c-my-beloved.gif" width="200px" height="200px">
+<img src="https://media.tenor.com/1MrJecNevgAAAAAM/c-c-my-beloved.gif" width="270px" height="270px">
 
 ## Flowchart
 
