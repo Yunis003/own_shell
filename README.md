@@ -28,7 +28,7 @@ Follow these steps:
 
 ## Usage
 
-Once the shell is running, you can enter commands in there. Here are a few examples:
+
 
 - `ls`: List files and directories in the current directory
 - `pwd`: Print the current working directory
