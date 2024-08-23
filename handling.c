@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_env - func for printing env
+ * print_env - function for printing env
  */
 void print_env(void)
 {
@@ -15,7 +15,7 @@ void print_env(void)
 }
 
 /**
- * setup_environment - func for environment setup
+ * setup_environment - function for environment setup
  * @path_env: environment path
  * @path: path
  */
