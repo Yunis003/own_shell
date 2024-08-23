@@ -47,8 +47,8 @@ For more: [man page](man_1_simple_shell).
 
 ## Authors
 
-Yunis Gulamov
 Umudova Fatima
 Zahra Israfilova
+Yunis Gulamov
 <img src="https://media1.tenor.com/m/wbDVOPdSjdgAAAAC/spy-x-family-spy-family.gif" width="320px">
 
