@@ -129,9 +129,5 @@ void handle_path(char **args, char **path, char **path_env, int *found)
 		{
 			*found = 1;
 			break;
-		}
-		path_token = strtok(NULL, ":");
-	}
-	free(*path_env);
-}
+
 
