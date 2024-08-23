@@ -25,4 +25,4 @@ void handle_path(char **args, char **path, char **path_env, int *found);
 void process_commands(char *commands, char **commands_array);
 void handle_commands_array(char **commands_array);
 
-#endif /* MAINH */
+#endif
