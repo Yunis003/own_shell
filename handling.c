@@ -111,5 +111,8 @@ int main(void)
 		commands[read_size] = '\0';
 
 		process_commands(commands, commands_array);
-		handle_commands_array(commands_array
+		handle_commands_array(commands_array);
+	}
+	return (0);
+}
 
