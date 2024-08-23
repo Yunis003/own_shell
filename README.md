@@ -37,6 +37,8 @@ Once the shell is running, you can enter commands in there. Here are a few examp
 
 For more: [man page](man_1_simple_shell).
 
+<img src="https://media.tenor.com/1MrJecNevgAAAAAM/c-c-my-beloved.gif" width="200px" height="200px">
+
 ## Flowchart
 
 <img src="https://preview.redd.it/cool-flowchart-showing-linux-and-unix-shell-execution-v0-gdwxcbc8tfqa1.png?width=640&crop=smart&auto=webp&s=539d264df7e7bf6b4cf1f55412cf3660d0392224" width="300px">
@@ -48,4 +50,5 @@ For more: [man page](man_1_simple_shell).
 Yunis Gulamov
 Umudova Fatima
 Zahra Israfilova
+<img src="https://media1.tenor.com/m/wbDVOPdSjdgAAAAC/spy-x-family-spy-family.gif" width="320px">
 
