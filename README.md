@@ -44,5 +44,7 @@ For more: [man page](man_1_simple_shell).
 
 ## Authors
 
-+
++Yunis Gulamov
++Umudova Fatima
++Zahra Israfilova
 
